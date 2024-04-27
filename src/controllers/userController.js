@@ -34,7 +34,7 @@ exports.GetUser = async (req, res) => {
 }
 
 
-exports.login = async (req, res) => {
+exports.Login = async (req, res) => {
     try {
         const { email, password } = req.body;
         //    Check email
@@ -62,6 +62,35 @@ exports.login = async (req, res) => {
             return res.status(statusCode.OK).json({ status: statusCode.OK, message: responseMessage.INCORRECT_PASSWORD })
         }
 
+    } catch (err) {
+        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+    }
+}
+
+exports.UpdateUser = async (req, res) => {
+    const { id } = req.params;
+    const user = req.body;
+
+    try {
+        const userData = await User.findByIdAndUpdate(id, user, { new: true });
+        if (!id || id.trim() === '') {
+            return res.json({ status: statusCode.BAD_REQUEST, message: responseMessage.ID_NOT_PROVIDE })
+        }
+        if (!userData) {
+            return res.json({ status: statusCode.BAD_REQUEST, message: responseMessage.USER_NOT_FOUND })
+        }
+
+        return res.json({ status: statusCode.OK, message: responseMessage.USER_PASSWORD });
+    } catch (err) {
+        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+    }
+}
+
+exports.DeleteUser = async (req, res) => {
+    const { id } = req.params;
+    try {
+        await User.findByIdAndDelete(id);
+        return res.json({ status: statusCode.OK, message: responseMessage.DELETE_USER });
     } catch (err) {
         res.status(statusCode.INTERNAL_SERVER_ERROR).json({ message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
     }
