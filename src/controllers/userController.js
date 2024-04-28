@@ -12,7 +12,7 @@ exports.UserCreate = async (req, res) => {
         // Validation
         const { error } = validateUser(req.body);
         if (error) {
-            return res.status(400).json({ status: 400, message: error.details[0].message });
+            return res.status(statusCode.BAD_REQUEST).json({ status: statusCode.BAD_REQUEST, message: error.details[0].message });
         }
 
         const user = await User.create({

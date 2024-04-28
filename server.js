@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require('mongoose');
 require("dotenv").config();
-const userRoutes = require('./src/routes/userRoutes')
+const routes = require('./src/routes/routes')
 
 const app = express();
 const port = process.env.PORT;
@@ -23,8 +23,8 @@ app.get("/", (req, res) => {
     res.send("Node.js project connected");
 });
 
-// User api routes
-app.use('/api', userRoutes);
+// Api routes
+app.use('/api', routes);
 
 app.listen(port, () => {
     console.log(`Server is running on ${port}`);

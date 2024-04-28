@@ -1,12 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/userController')
+const productController = require('../controllers/productController')
 const token = require('../../middleware/Authorization')
 
+// User routes
 router.post('/user', userController.UserCreate)
 router.get('/user', token, userController.GetUser)
 router.post('/user/login', userController.Login)
 router.put('/user/:id', token, userController.UpdateUser)
 router.delete('/user/:id', userController.DeleteUser)
+
+// Product routes
+router.post('/product', token, productController.createProduct)
 
 module.exports = router;

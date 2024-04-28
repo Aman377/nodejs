@@ -10,7 +10,11 @@ const resMsg = {
     USER_NOT_FOUND: "User not found",
     USER_PASSWORD: "User updated successfully",
     ID_NOT_PROVIDE: "User id not provide",
-    DELETE_USER: "User deleted successfully"
+    DELETE_USER: "User deleted successfully",
+
+    // Product
+    CREATE_PRODUCT: "Product is created successfully",
+    PRODUCT_NOT_CREATE: "Product is not created",
 }
 
 module.exports = resMsg;
