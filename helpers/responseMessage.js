@@ -15,6 +15,9 @@ const resMsg = {
     // Product
     CREATE_PRODUCT: "Product is created successfully",
     PRODUCT_NOT_CREATE: "Product is not created",
+    ALL_PRODUCT: "Get all product",
+    UPDATE_PRODUCT: "Products updated successfully",
+    PRODUCT_NOT_UPDATE: "Product not updated",
 }
 
 module.exports = resMsg;

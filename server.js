@@ -26,6 +26,9 @@ app.get("/", (req, res) => {
 // Api routes
 app.use('/api', routes);
 
+// for image
+app.use('/public', express.static('public'));
+
 app.listen(port, () => {
     console.log(`Server is running on ${port}`);
 });

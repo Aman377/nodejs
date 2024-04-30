@@ -3,6 +3,7 @@ const path = require('path');
 const { Product, validateProduct } = require('../models/productsModel');
 const statusCode = require('../../helpers/statusCode');
 const responseMessage = require('../../helpers/responseMessage');
+require('dotenv').config();
 
 // Configure Multer for file upload
 const uploadFilePath = path.resolve(__dirname, '../..', 'public/products');
@@ -54,7 +55,7 @@ exports.createProduct = async (req, res) => {
             });
 
             if (newProduct) {
-                return res.status(statusCode.OK).json({ status: statusCode.OK, message: responseMessage.CREATE_PRODUCT, data: newProduct });
+                return res.status(statusCode.CREATED).json({ status: statusCode.OK, message: responseMessage.CREATE_PRODUCT, data: newProduct });
             } else {
                 return res.status(statusCode.OK).json({ status: statusCode.OK, message: responseMessage.PRODUCT_NOT_CREATE });
             }
@@ -64,3 +65,36 @@ exports.createProduct = async (req, res) => {
         res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
     }
 };
+
+
+exports.getProducts = async (req, res) => {
+    try {
+        const products = await Product.find();
+        console.log(process.env.IMAGE_URL);
+        products.forEach(product => {
+            product.photo = process.env.IMAGE_URL + product.photo
+        })
+        return res.json({ status: statusCode.OK, message: responseMessage.ALL_PRODUCT, data: products })
+    } catch (err) {
+        console.error('Error creating product:', err);
+        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+    }
+}
+
+exports.updateProduct = async (req, res) => {
+    const product = req.body;
+    const id = req.params
+
+    try {
+        const productData = await Product.findOneAndUpdate(id, product, { new: true });
+        if (!productData) {
+            return res.status(statusCode.BAD_REQUEST).json({ status: statusCode.BAD_REQUEST, message: responseMessage.PRODUCT_NOT_UPDATE })
+        }
+
+        return res.json({ status: statusCode.OK, message: responseMessage.UPDATE_PRODUCT })
+
+    } catch (err) {
+        console.error('Error creating product:', err);
+        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+    }
+}

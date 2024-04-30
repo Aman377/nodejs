@@ -13,5 +13,7 @@ router.delete('/user/:id', userController.DeleteUser)
 
 // Product routes
 router.post('/product', token, productController.createProduct)
+router.get('/product', token, productController.getProducts)
+router.put('/product/:id', token, productController.updateProduct)
 
 module.exports = router;
