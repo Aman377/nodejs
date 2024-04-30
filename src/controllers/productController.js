@@ -3,6 +3,7 @@ const path = require('path');
 const { Product, validateProduct } = require('../models/productsModel');
 const statusCode = require('../../helpers/statusCode');
 const responseMessage = require('../../helpers/responseMessage');
+const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 
 // Configure Multer for file upload
@@ -83,18 +84,32 @@ exports.getProducts = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     const product = req.body;
-    const id = req.params
-
+    const id = req.params.productId;
     try {
-        const productData = await Product.findOneAndUpdate(id, product, { new: true });
+        const productData = await Product.findOneAndUpdate({ _id: id }, product, { new: true });
         if (!productData) {
             return res.status(statusCode.BAD_REQUEST).json({ status: statusCode.BAD_REQUEST, message: responseMessage.PRODUCT_NOT_UPDATE })
         }
 
-        return res.json({ status: statusCode.OK, message: responseMessage.UPDATE_PRODUCT })
+        return res.json({ status: statusCode.OK, message: responseMessage.UPDATE_PRODUCT, data: productData })
 
     } catch (err) {
-        console.error('Error creating product:', err);
+        console.error('Error update product:', err);
+        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+    }
+}
+
+exports.getProductById = async (req, res) => {
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(statusCode.NOT_FOUND).json({ status: statusCode.NOT_FOUND, message: responseMessage.DATA_NOT_FOUND })
+    }
+    try {
+        const product = await Product.findById(id)
+        return res.json({ status: statusCode.OK, message: responseMessage.PRODUCT_BY_ID, data: product })
+    } catch (err) {
+        console.error('Error get product:', err);
         res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
     }
 }

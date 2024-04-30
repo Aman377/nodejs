@@ -14,6 +14,7 @@ router.delete('/user/:id', userController.DeleteUser)
 // Product routes
 router.post('/product', token, productController.createProduct)
 router.get('/product', token, productController.getProducts)
-router.put('/product/:id', token, productController.updateProduct)
+router.put('/product/:productId', token, productController.updateProduct)
+router.get('/product/:id', token, productController.getProductById)
 
 module.exports = router;
