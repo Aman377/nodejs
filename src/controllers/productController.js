@@ -113,3 +113,23 @@ exports.getProductById = async (req, res) => {
         res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
     }
 }
+
+exports.getProductBySearch = async (req, res) => {
+    try {
+        const { search } = req.query;
+        const Products = await Product.find();
+        const filteredProduct = Products.filter(prod =>
+            prod.name.toLowerCase().includes(search.toLowerCase()) ||
+            prod.type.toLocaleLowerCase().includes(search.toLocaleLowerCase)
+        );
+        if (filteredProduct.length != 0) {
+            return res.json({ status: statusCode.OK, message: responseMessage.PRODUCT_BY_SEARCH, data: filteredProduct });
+        } else {
+            return res.json({ status: statusCode.NOT_FOUND, message: responseMessage.DATA_NOT_FOUND });
+
+        }
+    } catch (err) {
+        console.error('Error get product:', err);
+        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+    }
+}

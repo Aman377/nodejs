@@ -10,7 +10,7 @@ const ProductSchema = new mongoose.Schema({
 }, { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } })
 
 const productJoiSchema = Joi.object({
-    name: Joi.string().required(),  
+    name: Joi.string().required(),
     type: Joi.string().required(),
     price: Joi.number().required()
 })

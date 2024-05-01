@@ -20,6 +20,7 @@ const resMsg = {
     UPDATE_PRODUCT: "Products updated successfully",
     PRODUCT_NOT_UPDATE: "Product not updated",
     PRODUCT_BY_ID: "Product data by id",
+    PRODUCT_BY_SEARCH: "Product by search"
 
 }
 

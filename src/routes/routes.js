@@ -16,5 +16,6 @@ router.post('/product', token, productController.createProduct)
 router.get('/product', token, productController.getProducts)
 router.put('/product/:productId', token, productController.updateProduct)
 router.get('/product/:id', token, productController.getProductById)
+router.get('/product/search/data', token, productController.getProductBySearch)
 
 module.exports = router;
