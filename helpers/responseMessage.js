@@ -20,8 +20,11 @@ const resMsg = {
     UPDATE_PRODUCT: "Products updated successfully",
     PRODUCT_NOT_UPDATE: "Product not updated",
     PRODUCT_BY_ID: "Product data by id",
-    PRODUCT_BY_SEARCH: "Product by search"
+    PRODUCT_BY_SEARCH: "Product by search",
 
+    // Order
+    CREATE_ORDER: "Order created successfully",
+    ORDER_NOT_CREATE: "Order not created",
 }
 
 module.exports = resMsg;

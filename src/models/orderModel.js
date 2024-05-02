@@ -1,4 +1,3 @@
-const { Double } = require("mongodb");
 const mongoose = require("mongoose");
 const Joi = require("joi")
 
@@ -12,15 +11,18 @@ const orderSchema = new mongoose.Schema({
         ref: 'users'
     },
     quantity: Number,
-    price: Double,
+    price: {
+        type: Number,
+        default: null
+    },
     address: String
 }, { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } })
 
 const orderJoiSchema = Joi.object({
-    productId: Joi.required().string(),
-    userId: Joi.required().string(),
-    quantity: Joi.required().number(),
-    address: Joi.required().string(),
+    productId: Joi.string().required(),
+    userId: Joi.string().required(),
+    quantity: Joi.number().required(),
+    address: Joi.string().required(),
 })
 
 function validateOrder(data) {
