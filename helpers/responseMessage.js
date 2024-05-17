@@ -25,6 +25,7 @@ const resMsg = {
     // Order
     CREATE_ORDER: "Order created successfully",
     ORDER_NOT_CREATE: "Order not created",
+    ALL_ORDER: "All order data"
 }
 
 module.exports = resMsg;
