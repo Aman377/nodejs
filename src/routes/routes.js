@@ -24,4 +24,7 @@ router.get('/searchProduct', token, productController.getProductByPaginationAndS
 router.post('/order', token, orderController.addOrder)
 router.get('/order', token, orderController.getAllOrder)
 
+// Broadcasts api 
+router.get('/weather/:id', token, orderController.getWeatherCondition)
+
 module.exports = router;

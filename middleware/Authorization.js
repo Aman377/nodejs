@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const statusCode = require("../helpers/statusCode")
 
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
-    res.status(401).json({
-      status: 401,
+    res.status(statusCode.UNAUTHORIZED).json({
+      status: statusCode.UNAUTHORIZED,
       message: 'Unauthorized!',
     });
   }
@@ -16,8 +17,8 @@ const verifyToken = (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    res.status(403).json({
-      status: 403,
+    res.status(statusCode.FORBIDDEN).json({
+      status: statusCode.FORBIDDEN,
       message: 'Invalid token provide',
     });
   }
