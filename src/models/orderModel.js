@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'product'
     },
-    userId: {
+    userId: { 
         type: mongoose.Types.ObjectId,
         ref: 'users'
     },

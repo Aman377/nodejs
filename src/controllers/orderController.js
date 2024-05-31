@@ -57,12 +57,12 @@ exports.getWeatherCondition = async (req, res) => {
     try {
         const order = await Order.findById(id)
         await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${order?.city}&appid=${apiKey}`)
-            .then(res => {
-                const weather = res?.data?.weather?.[0];
+            .then(response => {
+                const weather = response?.data?.weather[0];
                 if (weather) {
-                    // res.status(statusCode.OK).json({ status: statusCode.OK, message: })
+                    res.status(statusCode.OK).json({ status: statusCode.OK, message: responseMessage.CLIMATE_MSG, data: weather })
                 } else {
-
+                    res.status(statusCode.OK).json({ status: statusCode.NOT_FOUND, message: responseMessage.DATA_NOT_FOUND })
                 }
             })
             .catch(err => {

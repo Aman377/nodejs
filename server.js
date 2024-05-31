@@ -2,6 +2,36 @@ const express = require("express");
 const mongoose = require('mongoose');
 require("dotenv").config();
 const routes = require('./src/routes/routes')
+const cartRoutes = require('./src/routes/cartRoutes')
+const wss = require('./src/controllers/WebSocketController')
+
+// Web Socket
+wss.wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+        client.send('This is a broadcast message from the server');
+    }
+});
+// const wss = new WebSocket.Server({ port: 8000 })
+// wss.on('connection', ws => {
+//     console.log('Client Connected');
+//     ws.send(JSON.stringify({ msg: 'Welcome to web socket' }));
+
+//     ws.on('msg', msg => {
+//         console.log(`Recieved: ${msg}`);
+
+//         try{
+
+//         }
+//     })
+//     ws.on('close', (close) => {
+//         console.log(`Client Disconnect ${close}`);
+//     })
+//     ws.on('error', error => {
+//         console.error(`WebSocket error: ${error}`);
+//     });
+// });
+// console.log('WebSocket server is running on ws://localhost:8000');
+
 
 const app = express();
 const port = process.env.PORT;
@@ -25,6 +55,7 @@ app.get("/", (req, res) => {
 
 // Api routes
 app.use('/api', routes);
+app.use('/cart', cartRoutes);
 
 // for image
 app.use('/public', express.static('public'));

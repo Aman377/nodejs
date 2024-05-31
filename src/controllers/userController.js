@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 exports.UserCreate = async (req, res) => {
     try {
         const { name, email, password, mobileNo } = req.body;
-        const hashPassword = await bcrypt.hash(password, 10);
 
         // Validation
         const { error } = validateUser(req.body);
@@ -15,6 +14,7 @@ exports.UserCreate = async (req, res) => {
             return res.status(statusCode.BAD_REQUEST).json({ status: statusCode.BAD_REQUEST, message: error.details[0].message });
         }
 
+        const hashPassword = await bcrypt.hash(password, 10);
         const user = await User.create({
             name, email, password: hashPassword, mobileNo
         });

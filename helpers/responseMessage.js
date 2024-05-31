@@ -25,7 +25,13 @@ const resMsg = {
     // Order
     CREATE_ORDER: "Order created successfully",
     ORDER_NOT_CREATE: "Order not created",
-    ALL_ORDER: "All order data"
+    ALL_ORDER: "All order data",
+    CLIMATE_MSG: "Your area climate condition",
+
+    // Cart
+    ADD_CART: "Cart added successfully",
+    ADD_NOT_CREATE: "Cart not added",
+    ALL_CART: "All cart data"
 }
 
 module.exports = resMsg;
