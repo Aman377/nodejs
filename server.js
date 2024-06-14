@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 require("dotenv").config();
 const routes = require('./src/routes/routes')
 const cartRoutes = require('./src/routes/cartRoutes')
-const wss = require('./src/controllers/WebSocketController')
+const wss = require('./src/controllers/WebSocketController');
+const routesName = require("./src/common/routesName");
 
 // Web Socket
 wss.wss.clients.forEach(client => {
@@ -34,8 +35,8 @@ app.get("/", (req, res) => {
 });
 
 // Api routes
-app.use('/api', routes);
-app.use('/cart', cartRoutes);
+app.use(routesName.api, routes);
+app.use(routesName.cart, cartRoutes);
 
 // for image
 app.use('/public', express.static('public'));

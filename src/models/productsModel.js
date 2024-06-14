@@ -15,9 +15,6 @@ const productJoiSchema = Joi.object({
     price: Joi.number().required()
 })
 
-function validateProduct(product) {
-    return productJoiSchema.valid(product)
-}
 const Product = mongoose.model('product', ProductSchema)
 
-module.exports = { Product, validateProduct };
+module.exports = { Product, productJoiSchema };

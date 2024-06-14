@@ -18,13 +18,9 @@ const cartSchema = new mongoose.Schema({
 const cartJoiSchema = Joi.object({
     userId: Joi.string().required(),
     productId: Joi.string().required(),
-    quantity: Joi.number().required(),
+    quantity: Joi.number().required()
 })
-
-function validateCart(data) {
-    return cartJoiSchema.valid(data)
-}
 
 const Cart = mongoose.model('cart', cartSchema)
 
-module.exports = { Cart, validateCart }
+module.exports = { Cart, cartJoiSchema }

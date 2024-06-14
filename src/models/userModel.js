@@ -1,4 +1,4 @@
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 const Joi = require('joi');
 
 const userSchema = new mongoose.Schema({
@@ -19,10 +19,6 @@ const userJoiSchema = Joi.object({
     mobileNo: Joi.number().integer().min(1000000000).max(9999999999)
 });
 
-function validateUser(user) {
-    return userJoiSchema.validate(user);
-}
-
 const User = mongoose.model('users', userSchema);
 
-module.exports = { User, validateUser };
+module.exports = { User, userJoiSchema };

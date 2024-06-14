@@ -1,4 +1,4 @@
-const { User, validateUser } = require('../models/userModel');
+const { User } = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const statusCode = require('../../helpers/statusCode');
 const responseMessage = require('../../helpers/responseMessage');
@@ -7,12 +7,6 @@ const jwt = require('jsonwebtoken');
 exports.UserCreate = async (req, res) => {
     try {
         const { name, email, password, mobileNo } = req.body;
-
-        // Validation
-        const { error } = validateUser(req.body);
-        if (error) {
-            return res.status(statusCode.BAD_REQUEST).json({ status: statusCode.BAD_REQUEST, message: error.details[0].message });
-        }
 
         const hashPassword = await bcrypt.hash(password, 10);
         const user = await User.create({

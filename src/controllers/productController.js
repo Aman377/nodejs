@@ -1,6 +1,6 @@
 const multer = require('multer');
 const path = require('path');
-const { Product, validateProduct } = require('../models/productsModel');
+const { Product } = require('../models/productsModel');
 const statusCode = require('../../helpers/statusCode');
 const responseMessage = require('../../helpers/responseMessage');
 const { default: mongoose } = require('mongoose');
@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB file size limit
+    limits: { fileSize: 5 * 1024 * 1024 },
     fileFilter(req, file, callback) {
         const allowedExtensions = ['.png', '.jpg', '.jpeg'];
         const isValidExtension = allowedExtensions.includes(path.extname(file.originalname).toLowerCase());
@@ -41,11 +41,6 @@ exports.createProduct = async (req, res) => {
             }
 
             const { name, type, price, description } = req.body;
-
-            const { errorProduct } = validateProduct(req.body);
-            if (errorProduct) {
-                return res.status(statusCode.BAD_REQUEST).json({ status: statusCode.BAD_REQUEST, message: errorProduct.details[0].message });
-            }
 
             const newProduct = await Product.create({
                 name,

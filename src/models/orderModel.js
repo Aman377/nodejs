@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'product'
     },
-    userId: { 
+    userId: {
         type: mongoose.Types.ObjectId,
         ref: 'users'
     },
@@ -24,13 +24,9 @@ const orderJoiSchema = Joi.object({
     userId: Joi.string().required(),
     quantity: Joi.number().required(),
     city: Joi.string().required(),
-    address: Joi.string().required(),
+    address: Joi.string().required()
 })
-
-function validateOrder(data) {
-    return orderJoiSchema.valid(data);
-}
 
 const Order = mongoose.model('order', orderSchema)
 
-module.exports = { Order, validateOrder }
+module.exports = { Order, orderJoiSchema }
