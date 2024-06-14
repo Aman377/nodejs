@@ -1,6 +1,6 @@
-const statusCode = require("../../helpers/statusCode");
+const statusCode = require("../helpers/statusCode");
 const { Product } = require("../models/productsModel");
-const responseMessage = require('../../helpers/responseMessage');
+const responseMessage = require('../helpers/responseMessage');
 const { Order } = require("../models/orderModel");
 
 exports.addOrder = async (orderSchema) => {
@@ -25,7 +25,20 @@ exports.addOrder = async (orderSchema) => {
         }
 
     } catch (err) {
-        console.error('Error creating product:', err);
-        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+        return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message };
+    }
+}
+
+exports.getAllOrder = async () => {
+    try {
+        const orders = await Order.find().populate('userId').populate('productId').exec();
+
+        if (orders) {
+            return { status: statusCode.OK, message: responseMessage.ALL_ORDER, data: orders }
+        } else {
+            return { status: statusCode.NOT_FOUND, message: responseMessage.DATA_NOT_FOUND };
+        }
+    } catch (err) {
+        return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message };
     }
 }

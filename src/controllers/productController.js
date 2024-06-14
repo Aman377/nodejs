@@ -1,8 +1,8 @@
 const multer = require('multer');
 const path = require('path');
 const { Product } = require('../models/productsModel');
-const statusCode = require('../../helpers/statusCode');
-const responseMessage = require('../../helpers/responseMessage');
+const statusCode = require('../helpers/statusCode');
+const responseMessage = require('../helpers/responseMessage');
 const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 
