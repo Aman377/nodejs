@@ -31,7 +31,8 @@ const resMsg = {
     // Cart
     ADD_CART: "Cart added successfully",
     ADD_NOT_CREATE: "Cart not added",
-    ALL_CART: "All cart data"
+    ALL_CART: "All cart data",
+    CART_BY_USER_ID: "All cart data by user id",
 }
 
 module.exports = resMsg;

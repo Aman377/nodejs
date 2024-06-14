@@ -1,5 +1,5 @@
-const statusCode = require("../../helpers/statusCode");
-const responseMessage = require('../../helpers/responseMessage')
+const statusCode = require("../helpers/statusCode");
+const responseMessage = require('../helpers/responseMessage')
 const { Cart } = require("../models/cartModel");
 
 exports.addCart = async (cartData) => {
@@ -19,7 +19,7 @@ exports.addCart = async (cartData) => {
 
     } catch (err) {
         console.error('Error creating product:', err);
-        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+        return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message };
     }
 }
 
@@ -33,6 +33,19 @@ exports.getCarts = async () => {
         }
     } catch (err) {
         console.error('Error creating product:', err);
-        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+        return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message };
+    }
+}
+
+exports.getCartByUserId = async (id) => {
+    try {
+        const carts = await Cart.find({ userId: id }).populate('userId').populate('productId')
+        if (carts) {
+            return { status: statusCode.OK, message: responseMessage.CART_BY_USER_ID, data: carts }
+        } else {
+            return { status: statusCode.NOT_FOUND, message: responseMessage.DATA_NOT_FOUND }
+        }
+    } catch (err) {
+        return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message };
     }
 }
