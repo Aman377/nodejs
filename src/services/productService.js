@@ -5,7 +5,6 @@ const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 const multer = require('multer');
 const path = require('path');
-const { Product } = require('../models/productsModel');
 
 // Configure Multer for file upload
 const uploadFilePath = path.resolve(__dirname, '../..', 'public/products');

@@ -49,3 +49,16 @@ exports.getCartByUserId = async (id) => {
         return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message };
     }
 }
+
+exports.removeCartById = async (id) => {
+    try {
+        const removeCartItem = await Cart.findByIdAndDelete(id)
+        if (removeCartItem) {
+            return { status: statusCode.OK, message: responseMessage.CART_DELETE }
+        } else {
+            return { status: statusCode.NOT_FOUND, message: responseMessage.CART_NOT_DELETE }
+        }
+    } catch (err) {
+        return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, err: err.message }
+    }
+}

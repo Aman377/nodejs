@@ -9,5 +9,6 @@ const { cartJoiSchema } = require('../models/cartModel')
 router.post('/', token, validateMiddleware(cartJoiSchema), cartController.addCart)
 router.get('/', token, cartController.getCarts)
 router.get('/:id', token, cartController.getCartByUserId)
+router.delete('/:id', token, cartController.removeCartById)
 
 module.exports = router
