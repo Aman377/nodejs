@@ -19,6 +19,7 @@ router.delete(routesName.userById, userController.DeleteUser)
 
 // Product routes
 router.post(routesName.product, token, validateMiddleware(productJoiSchema), productController.createProduct)
+router.post(routesName.addMultipleProduct, token, productController.addMultipleProduct)
 router.get(routesName.product, token, productController.getProducts)
 router.put(routesName.productByOwnId, token, productController.updateProduct)
 router.get(routesName.productById, token, productController.getProductById)

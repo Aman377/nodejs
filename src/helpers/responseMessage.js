@@ -21,6 +21,8 @@ const resMsg = {
     PRODUCT_NOT_UPDATE: "Product not updated",
     PRODUCT_BY_ID: "Product data by id",
     PRODUCT_BY_SEARCH: "Product by search",
+    PRODUCT_NOT_PROVIDED: "Product not provided",
+    MULTIPLE_PRODUCT_CREATED: "Multiple product created",
 
     // Order
     CREATE_ORDER: "Order created successfully",

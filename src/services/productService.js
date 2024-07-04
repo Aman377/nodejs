@@ -32,6 +32,10 @@ const upload = multer({
     },
 }).single('photo');
 
+const multipleUpload = multer({
+    storage: storage,
+}).array('files', 20);
+
 exports.createProduct = async (req, res) => {
     try {
         // Handle image upload
@@ -137,3 +141,77 @@ exports.getProductByPaginationAndSearch = async (search, page) => {
         return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message }
     }
 }
+
+exports.addMultipleProduct = async (req, res) => {
+    multipleUpload(req, res, async (err) => {
+        if (err) {
+            console.error('Multer error:', err);
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                message: responseMessage.INTERNAL_SERVER_ERROR,
+                error: err.message,
+            });
+        }
+
+        const products = [];
+        const files = req.files;
+
+        for (let key in req.body) {
+            if (key.startsWith('products[')) {
+                const match = key.match(/products\[(\d+)\](\w+)/);
+                if (match) {
+                    const index = parseInt(match[1]);
+                    const field = match[2];
+                    if (!products[index]) {
+                        products[index] = {};
+                    }
+                    products[index][field] = req.body[key];
+                }
+            }
+        }
+
+        if (!products || products.length === 0) {
+            return res.status(statusCode.BAD_REQUEST).json({
+                message: responseMessage.PRODUCT_NOT_PROVIDED,
+            });
+        }
+
+        const newProducts = [];
+
+        try {
+            for (let i = 0; i < products.length; i++) {
+                const { name, type, price, description } = products[i];
+                const image = files[i] ? files[i].path : null;
+
+                const newProduct = new Product({
+                    name,
+                    type,
+                    price,
+                    description,
+                    photo: image,
+                });
+
+                try {
+                    const savedProduct = await newProduct.save();
+                    newProducts.push(savedProduct);
+                } catch (saveError) {
+                    console.error('Error saving product:', saveError);
+                    return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                        message: responseMessage.INTERNAL_SERVER_ERROR,
+                        error: saveError.message,
+                    });
+                }
+            }
+
+            return res.status(statusCode.CREATED).json({
+                message: responseMessage.MULTIPLE_PRODUCT_CREATED,
+                data: newProducts,
+            });
+        } catch (err) {
+            console.error('Error in adding products:', err);
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                message: responseMessage.INTERNAL_SERVER_ERROR,
+                error: err.message,
+            });
+        }
+    });
+};

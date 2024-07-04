@@ -69,3 +69,13 @@ exports.getProductByPaginationAndSearch = async (req, res) => {
         res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
     }
 }
+
+exports.addMultipleProduct = async (req, res) => {
+    try {
+        const product = await productService.addMultipleProduct(req, res)
+        return product
+    } catch (err) {
+        console.error('Error get product:', err);
+        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, error: err.message });
+    }
+}

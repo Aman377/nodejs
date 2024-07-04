@@ -6,6 +6,7 @@ const routesName = {
     api: "/api",
     cart: "/cart",
     product: "/product",
+    addMultipleProduct: "/addMultipleProducts",
     productByOwnId: "/product/:productId",
     productById: "/product/:id",
     searchProductData: "/product/search/data",
