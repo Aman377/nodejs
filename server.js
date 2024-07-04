@@ -5,6 +5,7 @@ const routes = require('./src/routes/routes')
 const cartRoutes = require('./src/routes/cartRoutes')
 const wss = require('./src/controllers/WebSocketController');
 const routesName = require("./src/common/routesName");
+const { specs, swaggerUi } = require('./swagger');
 
 // Web Socket
 wss.wss.clients.forEach(client => {
@@ -40,6 +41,7 @@ app.use(routesName.cart, cartRoutes);
 
 // for image
 app.use('/public', express.static('public'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(port, () => {
     console.log(`Server is running on ${port}`);

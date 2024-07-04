@@ -13,6 +13,50 @@ const routesName = require("../common/routesName")
 // User routes
 router.post(routesName.user, validateMiddleware(userJoiSchema), userController.UserCreate)
 router.get(routesName.user, token, userController.GetUser)
+
+/**
+ * @swagger
+ * /api/user/login:
+ *   post:
+ *     summary: User login
+ *     tags: [Auth]
+ *     requestBody:
+ *       description: User credentials
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             example:
+ *                email: "example@gmail.com"
+ *                password: "examplepassword"
+ *     responses:
+ *        200:
+ *         description: User successfully login
+ *         content:
+ *           application/json:
+ *             example:
+ *               token: "JWT token here"
+ *        400:
+ *         description: Invalid credentials
+ *         content:
+ *           application/json:
+ *             examples:
+ *               emailNotFound:
+ *                 summary: Email not found
+ *                 value:
+ *                   message: "Email not found"
+ *               passwordNotMatch:
+ *                 summary: Invalid password provide
+ *                 value:
+ *                   message: "Invalid password provide"
+ */
+
 router.post(routesName.userLogin, userController.Login)
 router.put(routesName.userById, token, userController.UpdateUser)
 router.delete(routesName.userById, userController.DeleteUser)

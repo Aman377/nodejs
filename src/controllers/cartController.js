@@ -39,3 +39,14 @@ exports.removeCartById = async (req, res) => {
         res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, err: err.message })
     }
 }
+
+exports.updateCartById = async (req, res) => {
+    try {
+        const { id } = req.params
+        const cartData = req.body
+        const cart = await cartService.updateCartById(id, cartData)
+        res.status(statusCode.OK).json(cart)
+    } catch (err) {
+        res.status(statusCode.INTERNAL_SERVER_ERROR).json({ status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, err: err.message })
+    }
+}

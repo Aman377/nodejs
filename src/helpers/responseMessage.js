@@ -36,7 +36,9 @@ const resMsg = {
     ALL_CART: "All cart data",
     CART_BY_USER_ID: "All cart data by user id",
     CART_DELETE: "Cart remove successfully",
-    CART_NOT_DELETE: "Cart not remove"
+    CART_NOT_DELETE: "Cart not remove",
+    CART_NOT_UPDATE: "Cart not updated",
+    CART_UPDATE: "Cart updated successfully"
 }
 
 module.exports = resMsg;

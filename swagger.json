@@ -1,0 +1,96 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Cart API",
+      "description": "Cart API Information"
+    },
+    "host": "localhost:8080/api-docs",
+    "basePath": "/api",
+    "schemes": ["http"],
+    "paths": {
+      "/cart": {
+        "post": {
+          "tags": ["Cart"],
+          "description": "Add a new cart",
+          "parameters": [
+            {
+              "name": "cart",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Cart"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Cart added successfully"
+            }
+          }
+        },
+        "get": {
+          "tags": ["Cart"],
+          "description": "Get all carts",
+          "responses": {
+            "200": {
+              "description": "Successfully retrieved carts"
+            }
+          }
+        }
+      },
+      "/cart/{id}": {
+        "get": {
+          "tags": ["Cart"],
+          "description": "Get cart by user ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successfully retrieved cart"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Cart"],
+          "description": "Remove cart by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Cart removed successfully"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Cart": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+  

@@ -29,7 +29,7 @@ exports.Login = async (schema) => {
             )
             return { status: statusCode.OK, message: responseMessage.LOGIN_USER, token: token, data: user }
         } else {
-            return { status: statusCode.OK, message: responseMessage.INCORRECT_PASSWORD }
+            return { status: statusCode.BAD_REQUEST, message: responseMessage.INCORRECT_PASSWORD }
         }
 
     } catch (err) {

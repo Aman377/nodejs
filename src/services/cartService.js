@@ -62,3 +62,16 @@ exports.removeCartById = async (id) => {
         return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, err: err.message }
     }
 }
+
+exports.updateCartById = async (id, cartData) => {
+    try {
+        const cart = await Cart.findOneAndUpdate({ _id: id }, cartData, { new: true })
+        if (!cart) {
+            return { status: statusCode.BAD_REQUEST, message: responseMessage.CART_NOT_UPDATE }
+        }
+
+        return { status: statusCode.OK, message: responseMessage.CART_UPDATE, data: cart }
+    } catch (err) {
+        return { status: statusCode.INTERNAL_SERVER_ERROR, message: responseMessage.INTERNAL_SERVER_ERROR, err: err.message }
+    }
+}
