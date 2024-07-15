@@ -11,7 +11,9 @@ const routesName = {
     productById: "/product/:id",
     searchProductData: "/product/search/data",
     searchProduct: "/searchProduct",
-    weatherById: "/weather/:id"
+    weatherById: "/weather/:id",
+    review: "/review",
+    reviewById: "/review/:id",
 }
 
 module.exports = routesName

@@ -16,7 +16,7 @@ exports.createProduct = async (req, res) => {
 
 exports.getProducts = async (req, res) => {
     try {
-        const products = productService.getProducts()
+        const products = await productService.getProducts()
         return res.status(statusCode.OK).json(products)
     } catch (err) {
         console.error('Error creating product:', err);

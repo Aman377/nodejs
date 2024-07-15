@@ -38,7 +38,12 @@ const resMsg = {
     CART_DELETE: "Cart remove successfully",
     CART_NOT_DELETE: "Cart not remove",
     CART_NOT_UPDATE: "Cart not updated",
-    CART_UPDATE: "Cart updated successfully"
+    CART_UPDATE: "Cart updated successfully",
+
+    // Review
+    ADD_REVIEW: "Review added successfully",
+    REVIEW_NOT_ADDED: "Review not added",
+    REVIEW_BY_PRODUCT: "All review by single product"
 }
 
 module.exports = resMsg;

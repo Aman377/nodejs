@@ -3,12 +3,14 @@ const router = express.Router()
 const userController = require('../controllers/userController')
 const productController = require('../controllers/productController')
 const orderController = require('../controllers/orderController')
+const reviewController = require('../controllers/reviewController')
 const token = require('../middleware/Authorization')
 const validateMiddleware = require('../middleware/ValidateMiddleware')
 const { orderJoiSchema } = require('../models/orderModel')
 const { userJoiSchema } = require('../models/userModel')
 const { productJoiSchema } = require('../models/productsModel')
 const routesName = require("../common/routesName")
+const { reviewJoiSchema } = require('../models/reviewModel')
 
 // User routes
 router.post(routesName.user, validateMiddleware(userJoiSchema), userController.UserCreate)
@@ -76,5 +78,9 @@ router.get(routesName.order, token, orderController.getAllOrder)
 
 // Broadcasts api 
 router.get(routesName.weatherById, token, orderController.getWeatherCondition)
+
+// Review Api
+router.post(routesName.review, token, validateMiddleware(reviewJoiSchema), reviewController.addReview)
+router.get(routesName.reviewById, token, reviewController.getTotalCalculateReview)
 
 module.exports = router;

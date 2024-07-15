@@ -62,10 +62,10 @@ exports.GetUser = async () => {
 
 exports.UpdateUser = async (id, userSchema) => {
     try {
-        const userData = await User.findByIdAndUpdate(id, userSchema, { new: true });
         if (!id || id.trim() === '') {
             return { status: statusCode.BAD_REQUEST, message: responseMessage.ID_NOT_PROVIDE }
         }
+        const userData = await User.findByIdAndUpdate(id, userSchema, { new: true });
         if (!userData) {
             return { status: statusCode.BAD_REQUEST, message: responseMessage.USER_NOT_FOUND }
         }
