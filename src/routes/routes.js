@@ -83,4 +83,11 @@ router.get(routesName.weatherById, token, orderController.getWeatherCondition)
 router.post(routesName.review, token, validateMiddleware(reviewJoiSchema), reviewController.addReview)
 router.get(routesName.reviewById, token, reviewController.getTotalCalculateReview)
 
+// 
+router.get("/email/:folderName/:searchTerm", token, reviewController.readEmail)
+
+
+router.post("/chat", reviewController.chatAi)
+
+
 module.exports = router;

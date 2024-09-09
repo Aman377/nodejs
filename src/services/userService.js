@@ -14,7 +14,7 @@ exports.Login = async (schema) => {
         }
 
         //    Check password
-        const matchPass = await bcrypt.compare(password, user.password);
+        const matchPass = bcrypt.compare(password, user.password);
         if (matchPass) {
             const tokenPayload = {
                 email: user.email,

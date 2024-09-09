@@ -111,7 +111,7 @@ exports.getProductBySearch = async (search) => {
         const Products = await Product.find();
         const filteredProduct = Products.filter(prod =>
             prod.name.toLowerCase().includes(search.toLowerCase()) ||
-            prod.type.toLocaleLowerCase().includes(search.toLocaleLowerCase)
+            prod.type.toLocaleLowerCase().includes(search.toLowerCase())
         );
         if (filteredProduct.length != 0) {
             return { status: statusCode.OK, message: responseMessage.PRODUCT_BY_SEARCH, data: filteredProduct }
