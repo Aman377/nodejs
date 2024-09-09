@@ -48,7 +48,7 @@ exports.getProductById = async (req, res) => {
 }
 
 exports.getProductBySearch = async (req, res) => {
-    try {
+    try { 
         const { search } = req.query;
         const product = await productService.getProductBySearch(search)
         return res.status(statusCode.OK).json(product)
